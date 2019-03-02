@@ -5,6 +5,9 @@
 
 # Начало
 
+wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
+cat ~/spruthub/logo.ascii
+
 if [ -d ~/spruthub ]; then
         echo "=== Каталог со скриптами найден в ~/spruthub"
         ls -la ~/spruthub
@@ -24,9 +27,6 @@ else
         jq -n '{"installed":"yes"}' > ~/spruthub/spruthub.json
         cat ~/spruthub/spruthub.json
 fi
-
-wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
-cat ~/spruthub/logo.ascii
 
 echo "=== Получаем последнюю версию скрипта установки"
 echo "===   В дальнейшем обновление скриптов всегда можно запустить командой"
