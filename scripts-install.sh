@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Скрипт установки shell-скриптов
-#       SprutHub (https://sprut.ai/client/projects/105)
+# Версия 0.1
 
 # Начало
 
