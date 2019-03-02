@@ -28,26 +28,29 @@ fi
 echo "=== Получаем последнюю версию скрипта установки"
 echo "===   В дальнейшем обновление скриптов всегда можно запустить командой"
 echo "===   ~/spruthub/scripts-install.sh"
-wget -N -O ~/spruthub/sprt-hostname.sh https://github.com/ptath/spruthub/raw/master/scripts-install.sh
+wget -q -O ~/spruthub/sprt-hostname.sh https://github.com/ptath/spruthub/raw/master/scripts-install.sh
 chmod +x ~/spruthub/sprt-hostname.sh
 
 echo "=== Установка и запуск скрипта sprt-hostname.sh"
-wget -N -O ~/spruthub/sprt-hostname.sh https://github.com/ptath/spruthub/raw/master/sprt-hostname.sh | bash
+wget -q -O ~/spruthub/sprt-hostname.sh https://github.com/ptath/spruthub/raw/master/sprt-hostname.sh
 chmod +x ~/spruthub/sprt-hostname.sh
+~/spruthub/sprt-hostname.sh
 
 echo "=== Установка и запуск скрипта обновлений update.sh"
-wget -N -O ~/spruthub/update.sh https://github.com/ptath/spruthub/raw/master/update.sh | bash
+wget -q -O ~/spruthub/update.sh https://github.com/ptath/spruthub/raw/master/update.sh
 chmod +x ~/spruthub/update.sh
+~/spruthub/update.sh
 
 echo "=== Установка jq - приложение для работы с JSON-файлами"
 sudo apt install jq -y
 
 echo "=== Установка sprt_cfg_w.sh - скрипт для записи конфигурационного файла Spruthub"
-wget -N -O ~/spruthub/sprt_cfg_w.sh https://github.com/ptath/spruthub/raw/master/sprt_cfg_w.sh
+wget -q -O ~/spruthub/sprt_cfg_w.sh https://github.com/ptath/spruthub/raw/master/sprt_cfg_w.sh
 chmod +x ~/spruthub/sprt_cfg_w.sh
 
 echo "=== Установка и запуск pushover.sh"
-wget -N -O ~/spruthub/pushover.sh https://github.com/ptath/spruthub/raw/master/pushover.sh | bash
+wget -q -O ~/spruthub/pushover.sh https://github.com/ptath/spruthub/raw/master/pushover.sh
 chmod +x ~/spruthub/pushover.sh
+~/spruthub/pushover.sh
 
 # Конец
