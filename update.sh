@@ -18,9 +18,9 @@ sudo apt clean && sudo apt update && sudo apt upgrade -y
 #       некоторые старые приложения/скрипты перестанут работать.
 # Но зачем жить прошлым? По умолчанию выполняется обновление.
 
-echo "=== Обновляем npm? (Y/n): "
+echo "=== Обновляем npm: "
 npm install -g npm
-read -t 5 -n 1 -p "=== Будем обновлять npm? (Y/n): " npm_update_choice
+read -t 5 -n 1 -p "=== Будем обновлять сам менеджер пакетов npm? (Y/n): " npm_update_choice
 [ -z "$npm_update_choice" ] && npm_update_choice="y"
 case $npm_update_choice in
         y|Y ) echo " Установка..." && npm update;;
@@ -45,7 +45,7 @@ if [ -s /tmp/npm_outdated_list ]; then
         [ -z "$npm_update_choice" ] && npm_update_choice="y"
         case $npm_update_choice in
           y|Y ) echo " Пробуем установить..." && npm update;;
-          n|N|* ) echo " Хорошо, не будем ставить";;
+          n|N|* ) echo " Не будем ставить";;
 esac
 else
 echo "=== Обновления пакетов nodejs не требуются"
