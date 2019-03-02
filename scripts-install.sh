@@ -25,6 +25,9 @@ else
         cat ~/spruthub/spruthub.json
 fi
 
+wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
+cat ~/spruthub/logo.ascii
+
 echo "=== Получаем последнюю версию скрипта установки"
 echo "===   В дальнейшем обновление скриптов всегда можно запустить командой"
 echo "===   ~/spruthub/scripts-install.sh"
