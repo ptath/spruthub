@@ -10,8 +10,9 @@
 USER_TOKEN=$(jq -r '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)
 
 if [ $USER_TOKEN == "null" ] || [ $USER_TOKEN == \"\" ];then
-	echo "=== USER TOKEN не установлен, введи его и ENTER:"
-	read PUSHOVER_USER_TOKEN
+	echo "=== USER TOKEN ((https://pushover.net) не установлен, введи его и ENTER:"
+	# Таймаут 5 минут
+	read -t 300 PUSHOVER_USER_TOKEN
 		if [ "$PUSHOVER_USER_TOKEN" != "" ]; then
         		~/spruthub/sprt_cfg_w.sh PUSHOVER_USER_TOKEN "$PUSHOVER_USER_TOKEN"
 			echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)"
@@ -25,14 +26,15 @@ fi
 API_TOKEN=$(jq -r '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)
 
 if [ $API_TOKEN == "null" ] || [ $API_TOKEN == \"\" ];then
-        echo "=== API TOKEN не установлен, введи его и ENTER:"
-        read PUSHOVER_API_TOKEN
-                if [ "$PUSHOVER_API_TOKEN" != "" ]; then
-                        ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN "$PUSHOVER_API_TOKEN"
-                        echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
-                else
-                        echo "=== API TOKEN не установлен"
-                fi
+	echo "=== API TOKEN (https://pushover.net/apps) не установлен, введи его и ENTER:"
+	# Таймаут 5 минут
+	read -t 300 PUSHOVER_API_TOKEN
+  	if [ "$PUSHOVER_API_TOKEN" != "" ]; then
+              ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN "$PUSHOVER_API_TOKEN"
+              echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
+    else
+      echo "=== API TOKEN не установлен"
+    fi
 else
         echo "=== API TOKEN установлен: $(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
 fi
@@ -45,7 +47,7 @@ if [ "$1" = "setup" ];then
         ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN ""
 
         echo "=== Введи USER TOKEN: "
-        read PUSHOVER_USER_TOKEN
+        read -t 300 PUSHOVER_USER_TOKEN
                 if [ "$PUSHOVER_USER_TOKEN" != "" ]; then
                         ~/spruthub/sprt_cfg_w.sh PUSHOVER_USER_TOKEN "$PUSHOVER_USER_TOKEN"
                         echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)"
