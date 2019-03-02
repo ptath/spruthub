@@ -5,10 +5,10 @@
 
 # Начало
 
-wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
-cat ~/spruthub/logo.ascii
-
 if [ -d ~/spruthub ]; then
+        wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
+        cat ~/spruthub/logo.ascii
+
         echo "=== Каталог со скриптами найден в ~/spruthub"
         ls -la ~/spruthub
         echo "=== Ищем конфигурационный файл ~/spruthub"
@@ -16,6 +16,9 @@ if [ -d ~/spruthub ]; then
                 echo "=== Конфигурационный файл найден в ~/spruthub"
                 cat ~/spruthub/spruthub.json
         else
+                wget -q -O ~/spruthub/logo.ascii https://github.com/ptath/spruthub/raw/master/logo.ascii
+                cat ~/spruthub/logo.ascii
+
                 jq -n '{"installed":"yes"}' > ~/spruthub/spruthub.json
                 echo "=== Конфигурационный файл не найден и создан в ~/spruthub"
                 cat ~/spruthub/spruthub.json
