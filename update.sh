@@ -9,6 +9,8 @@
 # Обновление приложений, установленных через стандартный менеджер пакетов (apt)
 # Это надо делать постоянно в любом случае, поэтому интерактива нет
 
+cat ~/spruthub/logo.ascii
+
 echo "=== Обновляем приложения (первый раз весьма долго)..."
 sudo apt clean && sudo apt update && sudo apt upgrade -y
 
@@ -20,7 +22,7 @@ sudo apt clean && sudo apt update && sudo apt upgrade -y
 
 echo "=== Обновляем npm: "
 npm install -g npm
-read -t 5 -n 1 -p "=== Будем обновлять сам менеджер пакетов npm? (Y/n): " npm_update_choice
+read -t 7 -n 1 -p "=== Будем обновлять сам менеджер пакетов npm? (Y/n): " npm_update_choice
 [ -z "$npm_update_choice" ] && npm_update_choice="y"
 case $npm_update_choice in
         y|Y ) echo " Установка..." && npm update;;
@@ -41,7 +43,7 @@ npm outdated > /tmp/npm_outdated_list
 if [ -s /tmp/npm_outdated_list ]; then
         echo "=== Доступны обновления:"
         cat /tmp/npm_outdated_list
-        read -t 5 -n 1 -p "=== Установить? (Y/n): " npm_update_choice
+        read -t 7 -n 1 -p "=== Установить? (Y/n): " npm_update_choice
         [ -z "$npm_update_choice" ] && npm_update_choice="y"
         case $npm_update_choice in
           y|Y ) echo " Пробуем установить..." && npm update;;
