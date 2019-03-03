@@ -24,7 +24,7 @@ esac
 # === 1.1
 # Устанавливаем пакеты для скриптов через apt
 
-wget -N -O /tmp/ssapt.sh https://github.com/ptath/spruthub/raw/master/ssapt.sh &&
+wget -q -N -O /tmp/ssapt.sh https://github.com/ptath/spruthub/raw/master/ssapt.sh &&
   chmod +x /tmp/ssapt.sh &&
   /tmp/ssapt.sh
 
@@ -32,7 +32,7 @@ wget -N -O /tmp/ssapt.sh https://github.com/ptath/spruthub/raw/master/ssapt.sh &
 # === 1.2
 # Устанавливаем все наши скрипты в домашнюю папку
 
-wget -N -O /tmp/ssm.sh https://github.com/ptath/spruthub/raw/master/ssm.sh &&
+wget -q -N -O /tmp/ssm.sh https://github.com/ptath/spruthub/raw/master/ssm.sh &&
   chmod +x /tmp/ssm.sh &&
   /tmp/ssm.sh
 
