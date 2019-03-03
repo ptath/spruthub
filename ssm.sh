@@ -41,9 +41,9 @@ do
 	wget -q -N -O ~/spruthub/"$scriptname" $item
 	[ -e ~/spruthub/"$scriptname" ] &&
 		chmod +x ~/spruthub/"$scriptname" &&
-		echo "===       $scriptname установлен"
+		echo "=== > $scriptname установлен"
 	[ ! -e ~/spruthub/"$scriptname" ] &&
-    echo "===       Ошибка при установке $scriptname!"
+    echo "=== > Ошибка при установке $scriptname!"
 done
 
 echo "echo "====== ssm.sh завершён ======""
