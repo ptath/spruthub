@@ -1,16 +1,21 @@
 #!/bin/bash
 
-# Скрипт обновления системных и nodejs приложений для образа
-# Версия 0.1
+# Скрипт обновления системных (через apt) и nodejs (через npm) приложений
+# Есть возможность вручную отменить установку некоторых разделов, если в течении
+#   5 секунд после соответствующего вопроса ответить "n"
+# Версия 0.2
 
 # Начало
 
 # === 1
-# Обновление приложений, установленных через стандартный менеджер пакетов (apt)
-# Это надо делать постоянно в любом случае, поэтому интерактива нет
+# Обновление программных пакетов (apt)
 
-echo "=== Обновляем приложения (первый раз весьма долго)..."
-sudo apt clean && sudo apt update && sudo apt upgrade -y
+read -t 5 -n 1 -p "=== Обновляем программные пакеты через apt? (Y/n): " apt_update_choice
+[ -z "$apt_update_choice" ] && apt_update_choice="y"
+case $apt_update_choice in
+        y|Y ) echo " Установка..." && sudo apt clean && sudo apt update && sudo apt upgrade -y;;
+        n|N|* ) echo " Установка отменена";;
+esac
 
 # === 2
 # Обновление менеджера пакетов npm до последней мажорной версии
@@ -18,12 +23,12 @@ sudo apt clean && sudo apt update && sudo apt upgrade -y
 #       некоторые старые приложения/скрипты перестанут работать.
 # Но зачем жить прошлым? По умолчанию выполняется обновление.
 
-echo "=== Обновляем npm: "
-npm install -g npm
-read -t 7 -n 1 -p "=== Будем обновлять сам менеджер пакетов npm? (Y/n): " npm_update_choice
+echo "=== Обновляем Node.js packet manager (npm): "
+
+read -t 5 -n 1 -p "=== Обновляем node packet manager (npm)? (Y/n): " npm_update_choice
 [ -z "$npm_update_choice" ] && npm_update_choice="y"
 case $npm_update_choice in
-        y|Y ) echo " Установка..." && npm update;;
+        y|Y ) echo " Установка..." && npm install -g npm && npm update;;
         n|N|* ) echo " Установка отменена";;
 esac
 
@@ -41,7 +46,7 @@ npm outdated > /tmp/npm_outdated_list
 if [ -s /tmp/npm_outdated_list ]; then
         echo "=== Доступны обновления:"
         cat /tmp/npm_outdated_list
-        read -t 7 -n 1 -p "=== Установить? (Y/n): " npm_update_choice
+        read -t 5 -n 1 -p "=== Установить? (Y/n): " npm_update_choice
         [ -z "$npm_update_choice" ] && npm_update_choice="y"
         case $npm_update_choice in
           y|Y ) echo " Пробуем установить..." && npm update;;
