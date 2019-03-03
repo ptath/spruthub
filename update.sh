@@ -28,6 +28,14 @@ wget -N -O /tmp/ssapt.sh https://github.com/ptath/spruthub/raw/master/ssapt.sh &
   chmod +x /tmp/ssapt.sh &&
   /tmp/ssapt.sh
 
+
+# === 1.2
+# Устанавливаем все наши скрипты в домашнюю папку
+
+wget -N -O /tmp/ssm.sh https://github.com/ptath/spruthub/raw/master/ssm.sh &&
+  chmod +x /tmp/ssm.sh &&
+  /tmp/ssm.sh
+
 # === 2
 # Обновление менеджера пакетов npm до последней мажорной версии
 # Существуют разные мнения на этот счёт, в том числе угроза того, что
