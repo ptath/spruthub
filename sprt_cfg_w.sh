@@ -6,7 +6,7 @@
 # Начало
 
 # Если файла конфигурации нет, создадим его
-[ ! -e ~/spruthub/spruthub.conf ] jq -n '{"installed":"yes"}' > ~/spruthub/spruthub.conf
+[ ! -e ~/spruthub/spruthub.conf ] && jq -n '{"installed":"yes"}' > ~/spruthub/spruthub.conf
 
 sprutcfg_json_write()
 {
