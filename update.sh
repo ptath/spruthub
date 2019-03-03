@@ -7,6 +7,10 @@
 
 # Начало
 
+# === 0
+# Если нет каталога, создаем его
+[ ! -d ~/spruthub ] && mkdir ~/spruthub
+
 # === 1
 # Обновление программных пакетов (apt)
 
@@ -16,6 +20,13 @@ case $apt_update_choice in
         y|Y ) echo " Установка..." && sudo apt clean && sudo apt update && sudo apt upgrade -y;;
         n|N|* ) echo " Установка отменена";;
 esac
+
+# === 1.1
+# Устанавливаем пакеты для скриптов через apt
+
+wget -N -O /tmp/ssapt.sh https://github.com/ptath/spruthub/raw/master/ssapt.sh &&
+  chmod +x /tmp/ssapt.sh &&
+  /tmp/ssapt.sh
 
 # === 2
 # Обновление менеджера пакетов npm до последней мажорной версии
