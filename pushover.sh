@@ -7,7 +7,7 @@
 
 # Проверка конфигурации и в случае необходимости установка ключей
 
-USER_TOKEN=$(jq -r '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)
+USER_TOKEN=$(jq -r '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.conf)
 
 if [ $USER_TOKEN == "null" ] || [ $USER_TOKEN == \"\" ];then
 	echo "=== USER TOKEN ((https://pushover.net) не установлен, введи его и ENTER:"
@@ -15,15 +15,15 @@ if [ $USER_TOKEN == "null" ] || [ $USER_TOKEN == \"\" ];then
 	read -t 300 PUSHOVER_USER_TOKEN
 		if [ "$PUSHOVER_USER_TOKEN" != "" ]; then
         		~/spruthub/sprt_cfg_w.sh PUSHOVER_USER_TOKEN "$PUSHOVER_USER_TOKEN"
-			echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)"
+			echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.conf)"
 		else
 			echo "=== USER TOKEN не установлен"
 		fi
 else
-	echo "=== USER TOKEN установлен: $(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)"
+	echo "=== USER TOKEN установлен: $(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.conf)"
 fi
 
-API_TOKEN=$(jq -r '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)
+API_TOKEN=$(jq -r '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.conf)
 
 if [ $API_TOKEN == "null" ] || [ $API_TOKEN == \"\" ];then
 	echo "=== API TOKEN (https://pushover.net/apps) не установлен, введи его и ENTER:"
@@ -31,12 +31,12 @@ if [ $API_TOKEN == "null" ] || [ $API_TOKEN == \"\" ];then
 	read -t 300 PUSHOVER_API_TOKEN
   	if [ "$PUSHOVER_API_TOKEN" != "" ]; then
               ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN "$PUSHOVER_API_TOKEN"
-              echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
+              echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.conf)"
     else
       echo "=== API TOKEN не установлен"
     fi
 else
-        echo "=== API TOKEN установлен: $(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
+        echo "=== API TOKEN установлен: $(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.conf)"
 fi
 
 # Сброс ключей
@@ -50,7 +50,7 @@ if [ "$1" = "setup" ];then
         read -t 300 PUSHOVER_USER_TOKEN
                 if [ "$PUSHOVER_USER_TOKEN" != "" ]; then
                         ~/spruthub/sprt_cfg_w.sh PUSHOVER_USER_TOKEN "$PUSHOVER_USER_TOKEN"
-                        echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.json)"
+                        echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.conf)"
                 else
                         echo "=== USER TOKEN не установлен"
                 fi
@@ -59,7 +59,7 @@ if [ "$1" = "setup" ];then
         read PUSHOVER_API_TOKEN
                 if [ "$PUSHOVER_API_TOKEN" != "" ]; then
                         ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN "$PUSHOVER_API_TOKEN"
-                        echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.json)"
+                        echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.conf)"
                 else
                         echo "=== API TOKEN не установлен"
                 fi
@@ -108,7 +108,7 @@ if [ $# -lt 2 ]; then
 	TITLE="`whoami`@${HOSTNAME}"
 fi
 
-wget https://api.pushover.net/1/messages.json --post-data="token=$API_TOKEN&user=$USER_TOKEN&message=$MESSAGE&title=$TITLE&sound=$SOUND&priority=$PRIORITY&device=$DEVICE" -qO- > /dev/null 2>&1 &
+wget https://api.pushover.net/1/messages.conf --post-data="token=$API_TOKEN&user=$USER_TOKEN&message=$MESSAGE&title=$TITLE&sound=$SOUND&priority=$PRIORITY&device=$DEVICE" -qO- > /dev/null 2>&1 &
 echo "=== Сообщение отправлено"
 
 # Конец
