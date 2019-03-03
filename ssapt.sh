@@ -28,6 +28,6 @@ do
   fi
 done
 
-echo "=== ssapt.sh завершён"
+echo "====== ssapt.sh завершён ======"
 
 # Конец
