@@ -21,7 +21,7 @@ for item in ${apts[*]}
 do
   package_name=$item
   if [ $(dpkg-query -W -f='${Status}' "$package_name" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
-        echo "=== " $package_name" не установлен, ставим..."
+        echo "=== "       $package_name" не установлен, ставим..."
         sudo apt install "$package_name" -y
   else
         echo "=== "       $package_name" уже установлен"
