@@ -24,7 +24,7 @@ do
         echo "=== " $package_name" не установлен, ставим..."
         sudo apt install "$package_name" -y
   else
-        echo "=== " $package_name" уже установлен"
+        echo "=== "       $package_name" уже установлен"
   fi
 done
 
