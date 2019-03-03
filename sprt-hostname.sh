@@ -12,11 +12,11 @@ echo "=== Новое hostname (ENTER или 30 сек. чтобы оставит
 read -t 30 HOSTNAME
 if [ "$HOSTNAME" != "" ]; then
         sudo hostnamectl set-hostname $HOSTNAME
-        echo "=== Проверяем hostname:"
+        echo "=== > Готово, проверяем hostname:"
         cat /etc/hostname
-        echo "=== Изменения вступят в силу после перезагрузки (sudo reboot now)"
+        echo "=== > Изменения вступят в силу после перезагрузки (sudo reboot now)"
 else
-        echo "=== Hostname не изменено"
+        echo "=== > Hostname не изменено"
 fi
 
 echo "====== sprt-hostname.sh завершён ======"

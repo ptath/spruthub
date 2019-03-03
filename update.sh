@@ -42,8 +42,6 @@ wget -q -N -O /tmp/ssm.sh https://github.com/ptath/spruthub/raw/master/ssm.sh &&
 #       некоторые старые приложения/скрипты перестанут работать.
 # Но зачем жить прошлым? По умолчанию выполняется обновление.
 
-echo "=== Обновляем Node.js packet manager (npm): "
-
 read -t 5 -n 1 -p "=== Обновляем node packet manager (npm)? (Y/n): " npm_update_choice
 [ -z "$npm_update_choice" ] && npm_update_choice="y"
 case $npm_update_choice in
@@ -59,13 +57,13 @@ esac
 echo "=== Получаем список установленных пакетов nodejs..."
 npm list -g --depth 0
 
-echo "=== Проверяем наличие обновлений..."
+echo "=== > Проверяем наличие обновлений..."
 [ -e /tmp/npm_outdated_list ] && rm /tmp/npm_outdated_list
 npm outdated > /tmp/npm_outdated_list
 if [ -s /tmp/npm_outdated_list ]; then
-        echo "=== Доступны обновления:"
+        echo "=== > Доступны обновления:"
         cat /tmp/npm_outdated_list
-        read -t 5 -n 1 -p "=== Установить? (Y/n): " npm_update_choice
+        read -t 5 -n 1 -p "=== > Установить? (Y/n): " npm_update_choice
         [ -z "$npm_update_choice" ] && npm_update_choice="y"
         case $npm_update_choice in
           y|Y ) echo " Пробуем установить..." && npm update;;

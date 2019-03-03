@@ -52,7 +52,7 @@ if [ "$1" = "setup" ];then
                         ~/spruthub/sprt_cfg_w.sh PUSHOVER_USER_TOKEN "$PUSHOVER_USER_TOKEN"
                         echo "$(jq '."PUSHOVER_USER_TOKEN"' < ~/spruthub/spruthub.conf)"
                 else
-                        echo "=== USER TOKEN не установлен"
+                        echo "=== > USER TOKEN не установлен"
                 fi
 
         echo "=== Введи API TOKEN: "
@@ -61,7 +61,7 @@ if [ "$1" = "setup" ];then
                         ~/spruthub/sprt_cfg_w.sh PUSHOVER_API_TOKEN "$PUSHOVER_API_TOKEN"
                         echo "$(jq '."PUSHOVER_API_TOKEN"' < ~/spruthub/spruthub.conf)"
                 else
-                        echo "=== API TOKEN не установлен"
+                        echo "=== > API TOKEN не установлен"
                 fi
 
 exit
