@@ -12,7 +12,7 @@ sprutcfg_json_write()
 {
         S_JSON_KEY="$1"
         S_JSON_VALUE="$2"
-        jq --arg key "$S_JSON_KEY" --arg value "$S_JSON_VALUE" '. + {($key): ($value)}' ~/spruthub/spruthub.conf
+        jq --arg key "$S_JSON_KEY" --arg value "$S_JSON_VALUE" '. + {($key): ($value)}' ~/spruthub/spruthub.conf > ~/spruthub/tmp.spruthub.$$.conf && mv ~/spruthub/tmp.spruthub.$$.conf ~/spruthub/spruthub.conf
 }
 
 sprutcfg_json_write $1 $2
