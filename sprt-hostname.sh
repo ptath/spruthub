@@ -19,4 +19,6 @@ else
         echo "=== Hostname не изменено"
 fi
 
+echo "====== sprt-hostname.sh завершён ======"
+
 # Конец

@@ -6,7 +6,7 @@
 # Начало
 
 echo "=== Скачиваем файл с перечнем необходимых пакетов..."
-wget -N -O ~/spruthub/apt.list https://github.com/ptath/spruthub/raw/master/apt.list
+wget -q -N -O ~/spruthub/apt.list https://github.com/ptath/spruthub/raw/master/apt.list
 [ -e ~/spruthub/apt.list ] && echo "=== Успешно, нам нужны следующие пакеты:" && cat ~/spruthub/apt.list
 [ ! -e ~/spruthub/apt.list ] && echo "=== Ошибка" && exit
 
@@ -28,6 +28,6 @@ do
   fi
 done
 
-echo "=== Установка завершена"
+echo "=== ssapt.sh завершён"
 
 # Конец
