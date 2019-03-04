@@ -92,7 +92,7 @@ case $PI_ARM_VERSION in
 esac
 
 # Проверяем версию
-echo "=== Проверяем установленную версию..."
+echo "=== Проверяем установленную версию Node.js..."
 node -v
 
 # Ставим дополнительные пакеты, необходимые для Homebridge
@@ -108,10 +108,10 @@ for item in ${packages2install[*]}
 do
   package_name=$item
   if [ $(dpkg-query -W -f='${Status}' "$package_name" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
-        echo "=== >"$package_name" не установлен, ставим..."
+        echo "=== > "$package_name" не установлен, ставим..."
         sudo apt install "$package_name" -y
   else
-        echo "=== >"$package_name" уже установлен"
+        echo "=== > "$package_name" уже установлен"
   fi
 done
 
@@ -119,6 +119,22 @@ done
 # echo "=== Устанавливаем (обновляем) менеджер пакетов npm"
 echo "=== Установка Homebridge и дополнительных пакетов Node.js"
 
-npm install -g homebridge homebridge-config-ui-x homebridge-zigbee pm2
+npm_packages2install=(
+homebridge
+homebridge-config-ui-x
+homebridge-zigbee
+pm2
+)
+
+for item in ${npm_packages2install[*]}
+do
+  package_name=$item
+  if [ $(npm list -g --depth 0 | grep -c "$package_name@" 2>/dev/null) -eq 0 ];then
+        echo "=== >"$ package_name" не установлен, ставим..."
+        npm install -g "$package_name"
+  else
+        echo "=== >" $package_name" уже установлен"
+  fi
+done
 
 #wget -O - https://raw.githubusercontent.com/sdesalas/node-pi-zero/master/install-node-v.lts.sh | bash
