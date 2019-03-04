@@ -38,4 +38,11 @@ LTS_VERSION=$(echo $NODE_VERSION |
 );
 echo "=== $LTS_VERSION"
 
+case $PI_ARM_VERSION in
+  armv6l ) echo "=== $PI_ARM_VERSION - нет поддержки nodejs из репозитория";;
+  armv7l ) echo "=== $PI_ARM_VERSION - нет поддержки nodejs из репозитория";;
+  armv8l ) echo "=== $PI_ARM_VERSION - наконец-то! 64-битность завезли!!! Ура!!!!" && exit;;
+  *) echo "=== $PI_ARM_VERSION Что ты такое? Не знаю что делать с такой архитектурой процессора" && exit;;
+esac
+
 #wget -O - https://raw.githubusercontent.com/sdesalas/node-pi-zero/master/install-node-v.lts.sh | bash
