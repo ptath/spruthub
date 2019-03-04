@@ -19,7 +19,6 @@ PI_ARM_VERSION=$(
   uname -a |
   egrep 'armv[0-9]+l' -o
 );
-echo "=== $PI_ARM_VERSION"
 
 case $PI_ARM_VERSION in
   armv6l )
@@ -143,11 +142,11 @@ do
     case $version_choice in
             y|Y )
               echo " Переустанавливаем..." &&
-              npm remove -g "$package_name"
+              npm remove -g "$package_name" &&
               npm install -g "$package_name"
             ;;
             n|N|* )
-              echo " Оставляем" &&
+              echo " Оставляем"
             ;;
     esac
   fi
