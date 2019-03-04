@@ -43,18 +43,21 @@ case $PI_ARM_VERSION in
     );
     echo "=== > Версия длительной поддержки LTS (Long Term Support): $LTS_VERSION"
 
-    read -t 10 -p "=== Установить LTS $LTS_VERSION (Stable, рекомендуется) или последнюю $VERSION (Latest)? (S/l): " version_choice
-    [ -z "$version_choice" ] && version_choice="S"
-    case $apt_update_choice in
+    read -t 10 -n 1 -p "=== Установить LTS (Stable, рекомендуется) или последнюю $VERSION (Latest)? (S/l): " version_choice
+    [ -z "$version_choice" ] && version_choice="s"
+    case $version_choice in
             s|S )
               echo " Ставим LTS" &&
-              script_url="https://github.com/sdesalas/node-pi-zero/raw/master/install-node-v.lts.sh";;
+              script_url="https://github.com/sdesalas/node-pi-zero/raw/master/install-node-v.lts.sh"
+            ;;
             l|L|* )
               echo " Ставим $VERSION" &&
-              script_url="https://github.com/sdesalas/node-pi-zero/raw/master/install-node-v.last.sh";;
+              script_url="https://github.com/sdesalas/node-pi-zero/raw/master/install-node-v.last.sh"
+            ;;
     esac
 
     echo "=== Будем ставить отсюда $script_url"
+    
 
   ;;
   armv7l ) echo "=== > $PI_ARM_VERSION - ставим nodejs из системного репозитория"
@@ -64,7 +67,6 @@ case $PI_ARM_VERSION in
 esac
 
 # Ставим менеджер пакетов nodejs
-:npm_install_section
 echo "=== Устанавливаем менеджер пакетов npm"
 
 #wget -O - https://raw.githubusercontent.com/sdesalas/node-pi-zero/master/install-node-v.lts.sh | bash
