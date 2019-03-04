@@ -6,6 +6,13 @@
 
 # Начало
 
+if [ $(dpkg-query -W -f='${Status}' "node" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+      echo "=== > Node.js не установлен, ставим..."
+else
+      echo "=== > Node.js уже установлен:"
+      node -v
+fi
+
 # Определяем платформу (код: https://github.com/sdesalas/node-pi-zero/blob/master/install-node-v.lts.sh)
 #get pi ARM version
 PI_ARM_VERSION=$(
@@ -17,7 +24,7 @@ echo "=== $PI_ARM_VERSION"
 case $PI_ARM_VERSION in
   armv6l )
     # Похоже у нас zero или pi 1/2/3A
-    echo "=== > $PI_ARM_VERSION - нет поддержки nodejs из репозитория, будем ставить вручную"
+    echo "=== > $PI_ARM_VERSION - нет поддержки Node.js из репозитория, будем ставить вручную"
     echo "=== Ищем доступные версии..."
 
     #get latest nodejs version from node website
@@ -56,17 +63,62 @@ case $PI_ARM_VERSION in
             ;;
     esac
 
-    echo "=== Будем ставить отсюда $script_url"
-    
+    echo "=== > Будем ставить отсюда $script_url"
+    wget -q -N -O /tmp/install-node.sh "$script_url" &&
+      chmod +x /tmp/install-node.sh &&
+      /tmp/install-node.sh &&
+      rm /tmp/install-node.sh
 
+      if [ $(cat ~/.profile 2>/dev/null | grep -c "export PATH=\$PATH:/opt/nodejs/bin") -eq 0 ];then
+      echo "=== > Добавляем /opt/nodejs/bin в PATH ~/.profile"
+      echo "export PATH=\$PATH:/opt/nodejs/bin" >> ~/.profile
+    else
+      echo "=== > Путь /opt/nodejs/bin найден в ~/.profile, пропускаем"
+    fi
   ;;
-  armv7l ) echo "=== > $PI_ARM_VERSION - ставим nodejs из системного репозитория"
+
+  armv7l )
+    # Похоже у нас современная Raspberry Pi (2B или лучше)
+    if [ $(dpkg-query -W -f='${Status}' "node" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+          echo "=== > $PI_ARM_VERSION - ставим nodejs из системного репозитория"
+          sudo apm install nodejs -y
+    else
+          echo "=== > Node.js уже установлен"
+    fi
   ;;
+
   armv8l ) echo "=== > $PI_ARM_VERSION - наконец-то! 64-битность завезли!!! Ура!!!!" && exit;;
   *) echo "=== > $PI_ARM_VERSION Что ты такое? Не знаю что делать с такой архитектурой процессора" && exit;;
 esac
 
-# Ставим менеджер пакетов nodejs
-echo "=== Устанавливаем менеджер пакетов npm"
+# Проверяем версию
+echo "=== Проверяем установленную версию..."
+node -v
+
+# Ставим дополнительные пакеты, необходимые для Homebridge
+echo "=== Установка дополнительных пакетов..."
+
+# Списком потому что возможно добавятся еще
+packages2install=(
+libavahi-compat-libdnssd-dev
+jq
+)
+
+for item in ${packages2install[*]}
+do
+  package_name=$item
+  if [ $(dpkg-query -W -f='${Status}' "$package_name" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+        echo "=== >"$package_name" не установлен, ставим..."
+        sudo apt install "$package_name" -y
+  else
+        echo "=== >"$package_name" уже установлен"
+  fi
+done
+
+# Ставим менеджер пакетов nodejs (он стандартный?)
+# echo "=== Устанавливаем (обновляем) менеджер пакетов npm"
+echo "=== Установка Homebridge и дополнительных пакетов Node.js"
+
+npm install -g homebridge homebridge-config-ui-x homebridge-zigbee pm2
 
 #wget -O - https://raw.githubusercontent.com/sdesalas/node-pi-zero/master/install-node-v.lts.sh | bash
