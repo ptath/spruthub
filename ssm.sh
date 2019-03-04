@@ -27,8 +27,8 @@ fi
 
 echo "=== Скачиваем файл с перечнем скриптов..."
 wget -q -N -O ~/spruthub/ssm.list https://github.com/ptath/spruthub/raw/master/ssm.list
-[ -e ~/spruthub/ssm.list ] && echo "===	> Успешно"
-[ ! -e ~/spruthub/ssm.list ] && echo "===	> Ошибка" && exit
+[ -e ~/spruthub/ssm.list ] && echo "=== > Успешно"
+[ ! -e ~/spruthub/ssm.list ] && echo "=== > Ошибка" && exit
 
 IFS=$'\n' GLOBIGNORE='*' command eval 'SSM=($(cat ~/spruthub/ssm.list))'
 scripts=${SSM[*]}
@@ -46,6 +46,6 @@ do
     echo "=== > Ошибка при установке $scriptname!"
 done
 
-echo "echo "====== ssm.sh завершён ======""
+echo "====== ssm.sh завершён ======""
 
 # Конец
