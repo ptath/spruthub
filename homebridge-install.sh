@@ -134,10 +134,10 @@ for item in ${npm_packages2install[*]}
 do
   package_name=$item
   if [ $(cat /tmp/npm_installed_list 2>/dev/null | grep -c "$package_name@") -eq 0 ];then
-    echo "=== >"$ package_name" не установлен, ставим..."
+    echo "=== > "$package_name" не установлен, ставим..."
     npm install -g "$package_name"
   else
-    read -t 10 -n 1 -p "=== >" $package_name" уже установлен, переустановить? (N/y): " reinstall_choice
+    read -t 10 -n 1 -p "=== > "$package_name" уже установлен, переустановить? (N/y): " reinstall_choice
     [ -z "$reinstall_choice" ] && reinstall_choice="n"
     case $version_choice in
             y|Y )
