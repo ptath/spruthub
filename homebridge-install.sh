@@ -105,6 +105,7 @@ echo "=== Установка дополнительных пакетов..."
 
 # Списком потому что возможно добавятся еще
 packages2install=(
+git
 libavahi-compat-libdnssd-dev
 jq
 )
@@ -142,6 +143,27 @@ do
   if [ $(cat /tmp/npm_installed_list 2>/dev/null | grep -c "$package_name@") -eq 0 ];then
     echo "=== > "$package_name" не установлен, ставим..."
     npm install -g "$package_name"
+
+    # Удаляем существующие симлинки
+    sudo unlink /usr/bin/"$package_name";
+    sudo unlink /usr/sbin/"$package_name";
+    sudo unlink /sbin/"$package_name";
+    sudo unlink /usr/local/bin/"$package_name";
+    sudo unlink /usr/bin/"$package_name";
+    sudo unlink /usr/sbin/"$package_name";
+    sudo unlink /sbin/"$package_name";
+    sudo unlink /usr/local/bin/"$package_name";
+
+    # Создаем новые симлинки
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/bin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/sbin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /sbin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/local/bin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/bin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/sbin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /sbin/"$package_name";
+    sudo ln -s /opt/nodejs/bin/"$package_name" /usr/local/bin/"$package_name";
+
   else
     read -t 10 -n 1 -p "=== > "$package_name" уже установлен, переустановить? (N/y): " reinstall_choice
     [ -z "$reinstall_choice" ] && reinstall_choice="n"
