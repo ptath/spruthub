@@ -7,6 +7,9 @@
 # Начало
 
 if [ $(dpkg-query -W -f='${Status}' "node" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+      [ -e /usr/bin/node ] &&
+        echo "=== > Бинарник Node.js найден в /usr/bin/node, смотрим версию..." && node -v &&
+        echo "=== > Возможно Node.js был установлен вручную, переустанавливаем..."
       echo "=== > Node.js не установлен, ставим..."
 else
       echo "=== > Node.js уже установлен:"
