@@ -6,10 +6,12 @@
 
 # Начало
 
-if [ $(dpkg-query -W -f='${Status}' "node" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+if [ $(dpkg-query -W -f='${Status}' "nodejs" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
       [ -e /usr/bin/node ] &&
-        echo "=== > Бинарник Node.js найден в /usr/bin/node, смотрим версию..." && node -v &&
-        echo "=== > Возможно Node.js был установлен вручную, переустанавливаем..."
+        echo "=== > Бинарник Node.js найден в /usr/bin/node, смотрим версию..." &&
+        node -v &&
+        echo "=== > Возможно Node.js был установлен вручную, переустанавливаем..." &&
+        break
       echo "=== > Node.js не установлен, ставим..."
 else
       echo "=== > Node.js уже установлен:"
@@ -81,9 +83,10 @@ case $PI_ARM_VERSION in
 
   armv7l )
     # Похоже у нас современная Raspberry Pi (2B или лучше)
-    if [ $(dpkg-query -W -f='${Status}' "node" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
-          echo "=== > $PI_ARM_VERSION - ставим nodejs из системного репозитория"
-          sudo apm install nodejs -y
+    if [ $(dpkg-query -W -f='${Status}' "nodejs" 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+          echo "=== > $PI_ARM_VERSION - ставим nodejs LTS (10.x) из репозитория deb.nodesource.com"
+          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+          sudo apt install -y nodejs
     else
           echo "=== > Node.js уже установлен"
     fi
